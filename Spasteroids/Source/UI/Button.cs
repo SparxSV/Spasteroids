@@ -63,6 +63,12 @@ namespace Spasteroids.UI
 			else
 				onClick += _event;
 		}
+
+		public void RemoveListener(OnClickEvent? _event)
+		{
+			if(_event != null && onClick != null)
+				onClick -= _event;
+		}
 		
 		public override void Draw()
 		{
@@ -72,6 +78,11 @@ namespace Spasteroids.UI
 
 		public override void Update(float _deltaTime)
 		{
+			if(Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), GetBounds()) && Raylib.IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT))
+			{
+				onClick?.Invoke();
+			}
+			
 			color = renderSettings.tint.normal;
 			if(Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), GetBounds()))
 			{
@@ -79,6 +90,7 @@ namespace Spasteroids.UI
 					        renderSettings.tint.pressed : 
 					        renderSettings.tint.hovered;
 			}
+
 		}
 
 		private Rectangle GetBounds()

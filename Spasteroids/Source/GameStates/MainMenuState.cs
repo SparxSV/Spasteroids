@@ -25,6 +25,12 @@ namespace Spasteroids.UI
 			Button.RenderSettings renderSettings = new Button.RenderSettings(buttonColors, 100, "Fonts/poxel");
 
 			playButton = new Button(pos, size, "Play", renderSettings);
+			playButton.AddListener(() =>
+			{
+				GameStateManager.DeactivateStates(ID);
+				GameStateManager.ActivateStates("WE DID IT");
+			});
+			
 			GameObjectManager.Spawn(playButton);
 		}
 
